@@ -16,25 +16,10 @@ struct Test2View: View {
     var body: some View {
         NavigationView {
             List {
-                ForEach(Array(self.game.rounds.indices), id: \.self) { i in
-                    Section(header: Text("\(i)")) {
-                        ForEach(Array(self.game.players.indices), id: \.self) { j in
-                            HStack {
-                                Text("\(i)        \(j)")
-                                Spacer()
-                                Text("\(self.game.scoreBoard[j][i])")
-                            }
-                                    
-                            .onTapGesture { self.showPopover = true }
-                            .popover(isPresented: self.$showPopover, arrowEdge: .bottom) {
-                                CardCounterView(game: self.game, player_i: i, round_i: j)
-                                Button(action: {
-                                    self.showPopover = false
-                                    self.game.reset(playerCount: self.playerProposal)
-                                }) {
-                                    Text("Start")
-                                }
-                            }
+                ForEach(Array(self.game.rounds.enumerated()), id: \.element) { i in
+                    Section(header: Text("\(i.element)")) {
+                        ForEach(Array(self.game.players.enumerated()), id: \.element) { j in
+                            Text("\(i.element) \(j.element)")
                         }
                     }
                 }
@@ -62,5 +47,16 @@ struct Test2View_Previews: PreviewProvider {
 //            }
 //        }
 //
+//    }
+//}
+
+//.onTapGesture { self.showPopover = true }
+//.popover(isPresented: self.$showPopover, arrowEdge: .bottom) {
+//    CardCounterView(game: self.game, player_i: i, round_i: j)
+//    Button(action: {
+//        self.showPopover = false
+//        self.game.reset(playerCount: self.playerProposal)
+//    }) {
+//        Text("Start")
 //    }
 //}

@@ -16,21 +16,20 @@ struct GameView: View {
     var body: some View {
         NavigationView {
             List {
-                ForEach(Array(self.game.rounds.indices), id: \.self) { ri in
-                    Section(header: Text("Round \(ri): \(self.game.rounds[ri])")) {
+                ForEach([10,11,12,13,14,15,16,17,18,19] /*Array(self.game.rounds.enumerated())*/, id: \.self) { ri in
+                    Section(header: Text("Round \(ri-10): \(self.game.rounds[ri-10])")) {
                         ForEach(Array(self.game.players.indices), id: \.self) { pi in
                             HStack {
-                                Text("\(self.game.players[pi])")
-                                Text("Round \(ri), Player \(pi)")
-                                NavigationLink(destination: CardCounterView(
-                                    game: self.game,
-                                    player_i: pi,
-                                    round_i: ri
-                                )) {
-                                    Text("\(self.game.scoreBoard[pi][ri])")
-                                        .frame(maxWidth: .infinity,
-                                               alignment: .trailing)
-                                }
+                                Text("ri \(ri), pi \(pi)")
+//                                NavigationLink(destination: CardCounterView(
+//                                    game: self.game,
+//                                    player_i: pi,
+//                                    round_i: ri-10
+//                                )) {
+//                                    Text("\(self.game.scoreBoard[pi][ri-10])")
+//                                        .frame(maxWidth: .infinity,
+//                                               alignment: .trailing)
+//                                }
                             }
                         }
                     }
