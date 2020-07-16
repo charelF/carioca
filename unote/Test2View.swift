@@ -16,10 +16,10 @@ struct Test2View: View {
     var body: some View {
         NavigationView {
             List {
-                ForEach(Array(self.game.rounds.enumerated()), id: \.element) { i in
-                    Section(header: Text("\(i.element)")) {
-                        ForEach(Array(self.game.players.enumerated()), id: \.element) { j in
-                            Text("\(i.element) \(j.element)")
+                ForEach(self.game.rounds, id: \.id) { round in
+                    Section(header: Text("\(round.number): \(round.desc)")) {
+                        ForEach(self.game.players, id: \.id) { player in
+                            Text("\(player.name), \(round.number)")
                         }
                     }
                 }
@@ -58,5 +58,14 @@ struct Test2View_Previews: PreviewProvider {
 //        self.game.reset(playerCount: self.playerProposal)
 //    }) {
 //        Text("Start")
+//    }
+//}
+
+
+//ForEach(Array(self.game.rounds.enumerated()), id: \.element) { i in
+//    Section(header: Text("\(i.element)")) {
+//        ForEach(Array(self.game.players.enumerated()), id: \.element) { j in
+//            Text("\(i.element) \(j.element)")
+//        }
 //    }
 //}

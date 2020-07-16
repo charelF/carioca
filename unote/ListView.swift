@@ -60,13 +60,14 @@ struct ListView : View {
     
     var body: some View {
         List {
-            ForEach(self.mygroups.rounds.indices, id: \.self) { ri in
-                Section(header: Text("Round \(ri): \(self.mygroups.rounds[ri])")) {
-                    ForEach(self.mygroups.players.indices, id: \.self) { pi in
-                        Text("\(self.mygroups.scoreBoard[pi][ri])")
-                    }
-                }
-            }
+//            ForEach(self.mygroups.rounds.indices, id: \.self) { ri in
+//                Section(header: Text("Round \(ri): \(self.mygroups.rounds[ri])")) {
+//                    ForEach(self.mygroups.players.indices, id: \.self) { pi in
+//                        Text("\(self.mygroups.scoreBoard[pi][ri])")
+//                    }
+//                }
+//            }
+            Text("e")
         }
         .listStyle(GroupedListStyle())
     }
