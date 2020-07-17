@@ -21,9 +21,14 @@ struct Round: Hashable, Identifiable {
 //    }
 }
 
-struct Player: Hashable, Identifiable {
+struct Player: Hashable, Identifiable, Equatable {
     var name: String
     var id: UUID = UUID()
+    
+    static func == (lhs: Self, rhs: Self) -> Bool {
+        return lhs.id == rhs.id
+    }
+    
     
 //    var roundId: String
 //
@@ -104,11 +109,26 @@ class Game: ObservableObject {
     }
     
     func enterScore(player: Player, round: Round, score: Int) {
-        for i in self.scoreBoard[round]!.indices {
-            if self.scoreBoard[round]![i].player.id == player.id {
-                self.scoreBoard[round]![i] = ScoreBoardEntry(value: score, round: round, player: player)
+        if let sbe_a = self.scoreBoard[round] {
+            for (i, sbe) in sbe_a.enumerated() {
+                if sbe.player == player {
+                    self.scoreBoard[round]![i] = ScoreBoardEntry(value: score, round: round, player: player)
+                }
             }
         }
+        
+        
+//        for round in self.rounds {
+//            if let round
+//        }
+        
+        
+        
+//        for i in self.scoreBoard[round]!.indices {
+//            if self.scoreBoard[round]![i].player.id == player.id {
+//                self.scoreBoard[round]![i] = ScoreBoardEntry(value: score, round: round, player: player)
+//            }
+//        }
 //        self.scoreBoard[round]![player]! = ScoreBoardEntry(value: score, round: round, player: player)
     }
     

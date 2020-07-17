@@ -25,7 +25,7 @@ struct GameView: View {
                 
                 ForEach(self.game.rounds) { round in
                     Group {
-                        Section(header: Text("\(round.number): \(round.desc)")) {
+                        Section(header: Text("Round \(round.number): \(round.desc)")) {
                             ForEach(self.game.scoreBoard[round]!, id: \.self.id) { sbe in
                                 HStack {
                                     Text("\(sbe.player.name)")

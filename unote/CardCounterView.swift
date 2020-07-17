@@ -88,6 +88,10 @@ struct CardCounterView: View {
 
                     Button(action: {self.total += 25}, label: {Text("Joker")})
                     .padding(20)
+                    
+                    Button(action: {self.total = self.round.win}, label: {Text("Won").bold()})
+                    .padding(20)
+                    .foregroundColor(Color.yellow)
                 }
             }
             .padding(30)
@@ -100,10 +104,6 @@ struct CardCounterView: View {
                     self.game.enterScore(player: self.player, round: self.round, score: self.total)}, label: {Text("Save").bold()})
                     .foregroundColor(Color.green)
                     .padding(20)
-                Button(action: {
-                    self.game.enterScore(player: self.player, round: self.round, score: self.round.win)}, label: {Text("Won").bold()})
-                    .foregroundColor(Color.yellow)
-                    .padding(20)
             }
         }.foregroundColor(Color.primary)
     }
@@ -111,6 +111,8 @@ struct CardCounterView: View {
 
 struct CardCounterView_Previews: PreviewProvider {
     static var previews: some View {
-        CardCounterView()
+        CardCounterView(game: Game(playerCount: 4),
+                        player: Player(name: "tmp"),
+                        round: Round(number: 1, win: -10, desc: "tmp"))
     }
 }
