@@ -16,20 +16,62 @@ struct GameView: View {
     var body: some View {
         NavigationView {
             List {
-//                ForEach([10,11,12,13,14,15,16,17,18,19] /*Array(self.game.rounds.enumerated())*/, id: \.self) { ri in
-//                    Section(header: Text("Round \(ri-10): \(self.game.rounds[ri-10])")) {
-//                        ForEach(Array(self.game.players.indices), id: \.self) { pi in
-//                            HStack {
-//                                Text("ri \(ri), pi \(pi)")
-////                                NavigationLink(destination: CardCounterView(
-////                                    game: self.game,
-////                                    player_i: pi,
-////                                    round_i: ri-10
-////                                )) {
-////                                    Text("\(self.game.scoreBoard[pi][ri-10])")
-////                                        .frame(maxWidth: .infinity,
-////                                               alignment: .trailing)
-////                                }
+                
+                HStack {
+                    Text("Player").bold()
+                    Spacer()
+                    Text("Score").bold()
+                }
+                
+                ForEach(self.game.rounds) { round in
+                    Group {
+                        Section(header: Text("\(round.number): \(round.desc)")) {
+                            ForEach(self.game.scoreBoard[round]!, id: \.self.id) { sbe in
+                                HStack {
+                                    Text("\(sbe.player.name)")
+                                    Spacer()
+                                    NavigationLink(destination: CardCounterView(
+                                        game: self.game,
+                                        player: sbe.player,
+                                        round: sbe.round
+                                    )) {
+                                        Text("\(self.game.getScore(player: sbe.player, round: sbe.round))")
+                                            .frame(maxWidth: .infinity,
+                                                   alignment: .trailing)
+                                    }
+//
+                                }
+                            }
+                        }
+                    }
+                }
+                Section(header: Text("Total").underline()) {
+                    ForEach(Array(self.game.players), id: \.self) { player in
+                        HStack {
+                            Text("\(player.name)").bold()
+                            Spacer()
+                            Text("\(self.game.getTotalScore(player: player))").bold()
+                        }
+                    }
+                }
+            }
+//            List {
+//                ForEach(self.game.rounds) { round in
+//                    Group {
+//                        Section(header: Text("Round \(round.number): \(round.desc)")) {
+//                            ForEach(self.game.scoreBoard[round]!, id: \.self.id) { sbe in
+//                                HStack {
+//                                    Text("\(sbe.player.name)")
+//                                    NavigationLink(destination: CardCounterView(
+//                                        game: self.game,
+//                                        player: sbe.player,
+//                                        round: sbe.round
+//                                    )) {
+//                                        Text("\(self.game.getScore(player: sbe.player, round: sbe.round))")
+//                                            .frame(maxWidth: .infinity,
+//                                                   alignment: .trailing)
+//                                    }
+//                                }
 //                            }
 //                        }
 //                    }
@@ -43,8 +85,8 @@ struct GameView: View {
 //                        }
 //                    }
 //                }
-                Text("ë")
-            }
+//                Text("ë")
+//            }
             .listStyle(GroupedListStyle())
                     
             .navigationBarTitle("Game")
