@@ -14,12 +14,13 @@ struct Test2View: View {
     @State private var playerProposal = 0
     
     var body: some View {
-        NavigationView {
-            List {
-                ForEach(self.game.rounds, id: \.id) { round in
+        List {
+            ForEach(self.game.rounds) { round in
+                Group {
                     Section(header: Text("\(round.number): \(round.desc)")) {
-                        ForEach(self.game.players, id: \.id) { player in
-                            Text("\(player.name), \(round.number)")
+                        ForEach(self.game.scoreBoard[round]!, id: \.self.id) { sbe in
+                            Text("\(round.number) \(sbe.id)")
+                            
                         }
                     }
                 }
@@ -69,3 +70,5 @@ struct Test2View_Previews: PreviewProvider {
 //        }
 //    }
 //}
+
+

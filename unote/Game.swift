@@ -8,16 +8,36 @@
 
 import Foundation
 
-struct Round {
+struct Round: Hashable, Identifiable {
     var number: Int
     var win: Int
     var desc: String
     var id: UUID = UUID()
+    
+//    var players: [Player]
+//
+//    init(number: Int, win: Int, desc: String, players: [Player]) {
+//        self.players = players
+//    }
 }
 
-struct Player: Hashable {
+struct Player: Hashable, Identifiable {
     var name: String
     var id: UUID = UUID()
+    
+//    var roundId: String
+//
+//    init(name: String, round: Round) {
+//        self.name = name
+//        self.roundId = self.id.uuidString + round.id.uuidString
+//    }
+}
+
+struct ScoreBoardEntry: Identifiable {
+    var id = UUID()
+    var value: Int
+    var round: Round
+    var player: Player
 }
 
 
@@ -40,7 +60,8 @@ class Game: ObservableObject {
     
     @Published var players: [Player]
     
-    @Published var scoreBoard: [Player:[Int]]
+//    @Published var scoreBoard: [Round:[Player:ScoreBoardEntry]]
+    @Published var scoreBoard: [Round:[ScoreBoardEntry]]
     
     
     init(playerCount: Int) {
@@ -54,21 +75,49 @@ class Game: ObservableObject {
         }
         
         // generate scoreboard
-        for p in self.players {
-            self.scoreBoard[p] = [Int](repeating: 0, count: 10)
+//        for r in self.rounds {
+//            var tmp : [Player:ScoreBoardEntry] = [:]
+//            for p in self.players {
+//                tmp[p] = ScoreBoardEntry(value: 0, round: r, player: p)
+//            }
+//            self.scoreBoard[r] = tmp
+//        }
+        
+        for r in self.rounds {
+            var tmp: [ScoreBoardEntry] = []
+            for p in self.players {
+                tmp.append(ScoreBoardEntry(value: 0, round: r, player: p))
+            }
+            self.scoreBoard[r] = tmp
         }
     }
     
     func getScore(player: Player, round: Round) -> Int {
-        return self.scoreBoard[player]![round.number-1]
+        var out: Int = 0
+        for sbe in self.scoreBoard[round]! {
+            if sbe.player.id == player.id {
+                out += sbe.value
+            }
+        }
+        return out
+//        return self.scoreBoard[round]![player]!.value
     }
     
     func enterScore(player: Player, round: Round, score: Int) {
-        self.scoreBoard[player]![round.number-1] = score
+        for i in self.scoreBoard[round]!.indices {
+            if self.scoreBoard[round]![i].player.id == player.id {
+                self.scoreBoard[round]![i] = ScoreBoardEntry(value: score, round: round, player: player)
+            }
+        }
+//        self.scoreBoard[round]![player]! = ScoreBoardEntry(value: score, round: round, player: player)
     }
     
     func getTotalScore(player: Player) -> Int {
-        return self.scoreBoard[player]!.reduce(0, +)
+        var tmp: [Int] = []
+        for r in self.rounds {
+            tmp.append(self.getScore(player: player, round: r))
+        }
+        return tmp.reduce(0, +)
     }
     
     // Workaround because creating a new game instance is not allowed with ObservableObject and inside struct
@@ -83,8 +132,12 @@ class Game: ObservableObject {
         }
         
         // generate scoreboard
-        for p in self.players {
-            self.scoreBoard[p] = [Int](repeating: 0, count: 10)
+        for r in self.rounds {
+            var tmp: [ScoreBoardEntry] = []
+            for p in self.players {
+                tmp.append(ScoreBoardEntry(value: 0, round: r, player: p))
+            }
+            self.scoreBoard[r] = tmp
         }
     }
     
