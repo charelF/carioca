@@ -44,9 +44,7 @@ struct ContentView: View {
                 
                 Text("Made by Charel Felten")
                 .bold()
-                    .padding(10)
-                
-                TestView(game: self.game)
+                .padding(10)
                 
             }
             .tabItem {

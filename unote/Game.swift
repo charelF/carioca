@@ -8,19 +8,18 @@
 
 import Foundation
 
+struct Card {
+    var name: String
+    var value: Int
+}
+
 struct Round: Hashable, Identifiable {
     var number: Int
     var win: Int
     var desc: String
     var id: UUID = UUID()
-    
-//    var players: [Player]
-//
-//    init(number: Int, win: Int, desc: String, players: [Player]) {
-//        self.players = players
-//    }
 }
-
+    
 struct Player: Hashable, Identifiable, Equatable {
     var name: String
     var id: UUID = UUID()
@@ -28,14 +27,6 @@ struct Player: Hashable, Identifiable, Equatable {
     static func == (lhs: Self, rhs: Self) -> Bool {
         return lhs.id == rhs.id
     }
-    
-    
-//    var roundId: String
-//
-//    init(name: String, round: Round) {
-//        self.name = name
-//        self.roundId = self.id.uuidString + round.id.uuidString
-//    }
 }
 
 struct ScoreBoardEntry: Identifiable {
@@ -44,7 +35,6 @@ struct ScoreBoardEntry: Identifiable {
     var round: Round
     var player: Player
 }
-
 
 class Game: ObservableObject {
     
@@ -64,10 +54,7 @@ class Game: ObservableObject {
     ]
     
     @Published var players: [Player]
-    
-//    @Published var scoreBoard: [Round:[Player:ScoreBoardEntry]]
     @Published var scoreBoard: [Round:[ScoreBoardEntry]]
-    
     
     init(playerCount: Int) {
         self.scoreBoard = [:]
@@ -78,15 +65,6 @@ class Game: ObservableObject {
         for i in 0..<playerCount {
             self.players.append(Player(name:"Player \(i+1)"))
         }
-        
-        // generate scoreboard
-//        for r in self.rounds {
-//            var tmp : [Player:ScoreBoardEntry] = [:]
-//            for p in self.players {
-//                tmp[p] = ScoreBoardEntry(value: 0, round: r, player: p)
-//            }
-//            self.scoreBoard[r] = tmp
-//        }
         
         for r in self.rounds {
             var tmp: [ScoreBoardEntry] = []
@@ -105,7 +83,6 @@ class Game: ObservableObject {
             }
         }
         return out
-//        return self.scoreBoard[round]![player]!.value
     }
     
     func enterScore(player: Player, round: Round, score: Int) {
@@ -116,20 +93,6 @@ class Game: ObservableObject {
                 }
             }
         }
-        
-        
-//        for round in self.rounds {
-//            if let round
-//        }
-        
-        
-        
-//        for i in self.scoreBoard[round]!.indices {
-//            if self.scoreBoard[round]![i].player.id == player.id {
-//                self.scoreBoard[round]![i] = ScoreBoardEntry(value: score, round: round, player: player)
-//            }
-//        }
-//        self.scoreBoard[round]![player]! = ScoreBoardEntry(value: score, round: round, player: player)
     }
     
     func getTotalScore(player: Player) -> Int {
@@ -159,16 +122,5 @@ class Game: ObservableObject {
             }
             self.scoreBoard[r] = tmp
         }
-    }
-    
-    func print() -> String {
-        var out: String = ""
-//        for i in self.scoreBoard {
-//            for j in i {
-//                out += "\(j) |"
-//            }
-//            out += "\n"
-//        }
-        return out
     }
 }

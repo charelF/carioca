@@ -8,11 +8,52 @@
 
 import SwiftUI
 
+let cards = [
+    Card(name:"2", value:2),
+    Card(name:"3", value:3),
+    Card(name:"4", value:4),
+    Card(name:"5", value:5),
+    Card(name:"6", value:6),
+    Card(name:"7", value:7),
+    Card(name:"8", value:8),
+    Card(name:"9", value:9),
+    Card(name:"10", value:10),
+    Card(name:"J", value:11),
+    Card(name:"Q", value:11),
+    Card(name:"K", value:11),
+    Card(name:"A", value:11),
+    Card(name:"Joker", value:25)
+]
+
 struct CardCounterView: View {
     @State var total = 0
+    @State var sum: String = ""
     @ObservedObject var game: Game
     var player: Player
     var round: Round
+    
+    func add(card: Card) {
+        self.total += card.value
+        if self.sum == "" {
+            self.sum += "\(card.name) "
+        } else {
+            self.sum += "+ \(card.name) "
+        }
+    }
+    
+    func reset() {
+        self.total = 0
+        self.sum = ""
+    }
+    
+    func win() {
+        self.total = self.round.win
+        self.sum = "Won"
+    }
+    
+    func save() {
+        self.game.enterScore(player: self.player, round: self.round, score: self.total)
+    }
     
     var body: some View {
         VStack {
@@ -20,76 +61,51 @@ struct CardCounterView: View {
             Text(String(total))
             .bold()
             .padding(20)
-            .background(
-                LinearGradient(gradient: Gradient(colors: [Color.blue, Color.purple]), startPoint: .leading, endPoint: .topTrailing)
-            )
+            .background(Color.purple)
             .foregroundColor(Color.white)
             .cornerRadius(10.0)
             .font(.title)
             .contextMenu {
-                Text(String(total))
+                Text(self.sum)
             }
+            .shadow(color: Color.purple, radius: 40, y: 0)
 
             VStack {
                 HStack {
-                    Button(action: {self.total += 2}, label: {Text("2")})
-                    .padding(20)
-
-                    Button(action: {self.total += 3}, label: {Text("3")})
-                    .padding(20)
-
-                    Button(action: {self.total += 4}, label: {Text("4")})
-                    .padding(20)
-
+                    ForEach([0,1,2], id: \.self) { i in
+                        Button(action: {self.add(card: cards[i])}, label: {Text(cards[i].name)})
+                        .padding(20)
+                    }
                 }
 
                 HStack {
-
-                    Button(action: {self.total += 5}, label: {Text("5")})
-                    .padding(20)
-
-                    Button(action: {self.total += 6}, label: {Text("6")})
-                    .padding(20)
-
-                    Button(action: {self.total += 7}, label: {Text("7")})
-                    .padding(20)
-
+                    ForEach([3,4,5], id: \.self) { i in
+                        Button(action: {self.add(card: cards[i])}, label: {Text(cards[i].name)})
+                        .padding(20)
+                    }
                 }
 
                 HStack {
-
-                    Button(action: {self.total += 8}, label: {Text("8")})
-                    .padding(20)
-
-                    Button(action: {self.total += 9}, label: {Text("9")})
-                    .padding(20)
-
-                    Button(action: {self.total += 10}, label: {Text("10")})
-                    .padding(20)
-
-
+                    ForEach([6,7,8], id: \.self) { i in
+                        Button(action: {self.add(card: cards[i])}, label: {Text(cards[i].name)})
+                        .padding(20)
+                    }
                 }
+                
                 HStack {
-
-                    Button(action: {self.total += 11}, label: {Text("J")})
-                    .padding(20)
-
-                    Button(action: {self.total += 11}, label: {Text("Q")})
-                    .padding(20)
-
-                    Button(action: {self.total += 11}, label: {Text("K")})
-                    .padding(20)
-
+                    ForEach([9,10,11], id: \.self) { i in
+                        Button(action: {self.add(card: cards[i])}, label: {Text(cards[i].name)})
+                        .padding(20)
+                    }
                 }
+                
                 HStack {
-
-                    Button(action: {self.total += 11}, label: {Text("A")})
-                    .padding(20)
-
-                    Button(action: {self.total += 25}, label: {Text("Joker")})
-                    .padding(20)
+                    ForEach([12,13], id: \.self) { i in
+                        Button(action: {self.add(card: cards[i])}, label: {Text(cards[i].name)})
+                        .padding(20)
+                    }
                     
-                    Button(action: {self.total = self.round.win}, label: {Text("Won").bold()})
+                    Button(action: {self.win()}, label: {Text("Won").bold()})
                     .padding(20)
                     .foregroundColor(Color.yellow)
                 }
@@ -97,14 +113,17 @@ struct CardCounterView: View {
             .padding(30)
 
             HStack {
-                Button(action: {self.total=0}, label: {Text("Reset").bold()})
+                Button(action: {self.reset()}, label: {Text("Reset").bold()})
                     .foregroundColor(Color.red)
                     .padding(20)
-                Button(action: {
-                    self.game.enterScore(player: self.player, round: self.round, score: self.total)}, label: {Text("Save").bold()})
+                Button(action: {self.save()}, label: {Text("Save").bold()})
                     .foregroundColor(Color.green)
                     .padding(20)
             }
+            
+//            Text(self.sum)
+//                .font(.footnote)
+//                .foregroundColor(Color.gray)
         }.foregroundColor(Color.primary)
     }
 }

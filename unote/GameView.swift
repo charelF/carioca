@@ -39,7 +39,6 @@ struct GameView: View {
                                             .frame(maxWidth: .infinity,
                                                    alignment: .trailing)
                                     }
-//
                                 }
                             }
                         }
@@ -55,38 +54,6 @@ struct GameView: View {
                     }
                 }
             }
-//            List {
-//                ForEach(self.game.rounds) { round in
-//                    Group {
-//                        Section(header: Text("Round \(round.number): \(round.desc)")) {
-//                            ForEach(self.game.scoreBoard[round]!, id: \.self.id) { sbe in
-//                                HStack {
-//                                    Text("\(sbe.player.name)")
-//                                    NavigationLink(destination: CardCounterView(
-//                                        game: self.game,
-//                                        player: sbe.player,
-//                                        round: sbe.round
-//                                    )) {
-//                                        Text("\(self.game.getScore(player: sbe.player, round: sbe.round))")
-//                                            .frame(maxWidth: .infinity,
-//                                                   alignment: .trailing)
-//                                    }
-//                                }
-//                            }
-//                        }
-//                    }
-//                }
-//                Section(header: Text("Total")) {
-//                    ForEach(Array(self.game.players.indices), id: \.self) { pi in
-//                        HStack {
-//                            Text("\(self.game.players[pi]):")
-//                            Spacer()
-//                            Text("\(self.game.getScore(player: pi))")
-//                        }
-//                    }
-//                }
-//                Text("ë")
-//            }
             .listStyle(GroupedListStyle())
                     
             .navigationBarTitle("Game")
