@@ -56,15 +56,10 @@ class Game: ObservableObject {
     @Published var players: [Player]
     @Published var scoreBoard: [Round:[ScoreBoardEntry]]
     
-    init(playerCount: Int) {
+    init(players: [Player]) {
         self.scoreBoard = [:]
-        self.players = []
-        self.playerCount = playerCount
-        
-        // generate players
-        for i in 0..<playerCount {
-            self.players.append(Player(name:"Player \(i+1)"))
-        }
+        self.players = players
+        self.playerCount = players.count
         
         for r in self.rounds {
             var tmp: [ScoreBoardEntry] = []
@@ -73,6 +68,14 @@ class Game: ObservableObject {
             }
             self.scoreBoard[r] = tmp
         }
+    }
+    
+    convenience init(playerCount: Int) {
+        var tmp = [Player]()
+        for i in 0..<playerCount {
+            tmp.append(Player(name:"Player \(i+1)"))
+        }
+        self.init(players: tmp)
     }
     
     func getScore(player: Player, round: Round) -> Int {
@@ -104,17 +107,11 @@ class Game: ObservableObject {
     }
     
     // Workaround because creating a new game instance is not allowed with ObservableObject and inside struct
-    func reset(playerCount: Int) {
+    func reset(players: [Player]) {
         self.scoreBoard = [:]
-        self.players = []
-        self.playerCount = playerCount
+        self.players = players
+        self.playerCount = players.count
         
-        // generate players
-        for i in 0..<playerCount {
-            self.players.append(Player(name:"Player \(i+1)"))
-        }
-        
-        // generate scoreboard
         for r in self.rounds {
             var tmp: [ScoreBoardEntry] = []
             for p in self.players {

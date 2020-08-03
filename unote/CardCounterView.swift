@@ -56,75 +56,98 @@ struct CardCounterView: View {
     }
     
     var body: some View {
-        VStack {
-
-            Text(String(total))
-            .bold()
-            .padding(20)
-            .background(Color.purple)
-            .foregroundColor(Color.white)
-            .cornerRadius(10.0)
-            .font(.title)
-            .contextMenu {
-                Text(self.sum)
-            }
-            .shadow(color: Color.purple, radius: 40, y: 0)
-
+        ZStack {
+            LinearGradient(gradient: Gradient(colors: [
+                Color(red: 251/256, green: 215/256, blue: 70/256),
+                Color(red: 250/256, green: 170/256, blue: 50/256)]),
+            startPoint: .topLeading, endPoint: .bottom)
+            
+            
+            .edgesIgnoringSafeArea(.all)
+            
+            
             VStack {
-                HStack {
-                    ForEach([0,1,2], id: \.self) { i in
-                        Button(action: {self.add(card: cards[i])}, label: {Text(cards[i].name)})
-                        .padding(20)
-                    }
-                }
 
-                HStack {
-                    ForEach([3,4,5], id: \.self) { i in
-                        Button(action: {self.add(card: cards[i])}, label: {Text(cards[i].name)})
-                        .padding(20)
-                    }
+                Text(String(total))
+                .bold()
+                .padding(20)
+                .background(Color.purple)
+                .foregroundColor(Color.white)
+                .cornerRadius(10.0)
+                .font(.title)
+                .contextMenu {
+                    Text(self.sum)
                 }
+                .shadow(color: Color.purple, radius: 40, y: 0)
 
-                HStack {
-                    ForEach([6,7,8], id: \.self) { i in
-                        Button(action: {self.add(card: cards[i])}, label: {Text(cards[i].name)})
-                        .padding(20)
+                VStack {
+                    HStack {
+                        ForEach([0,1,2], id: \.self) { i in
+                            Button(action: {self.add(card: cards[i])}, label: {Text(cards[i].name)})
+                            .padding(20)
+                        }
                     }
-                }
-                
-                HStack {
-                    ForEach([9,10,11], id: \.self) { i in
-                        Button(action: {self.add(card: cards[i])}, label: {Text(cards[i].name)})
-                        .padding(20)
+
+                    HStack {
+                        ForEach([3,4,5], id: \.self) { i in
+                            Button(action: {self.add(card: cards[i])}, label: {Text(cards[i].name)})
+                            .padding(20)
+                        }
                     }
-                }
-                
-                HStack {
-                    ForEach([12,13], id: \.self) { i in
-                        Button(action: {self.add(card: cards[i])}, label: {Text(cards[i].name)})
-                        .padding(20)
+
+                    HStack {
+                        ForEach([6,7,8], id: \.self) { i in
+                            Button(action: {self.add(card: cards[i])}, label: {Text(cards[i].name)})
+                            .padding(20)
+                        }
                     }
                     
-                    Button(action: {self.win()}, label: {Text("Won").bold()})
-                    .padding(20)
-                    .foregroundColor(Color.yellow)
+                    HStack {
+                        ForEach([9,10,11], id: \.self) { i in
+                            Button(action: {self.add(card: cards[i])}, label: {Text(cards[i].name)})
+                            .padding(20)
+                        }
+                    }
+                    
+                    HStack {
+                        ForEach([12,13], id: \.self) { i in
+                            Button(action: {self.add(card: cards[i])}, label: {Text(cards[i].name)})
+                            .padding(20)
+                        }
+                        
+                        Button(action: {self.win()}, label: {Text("Won").bold()})
+                        .padding(20)
+                        .foregroundColor(Color.black)
+                    }
                 }
-            }
-            .padding(30)
+                .padding(30)
 
-            HStack {
-                Button(action: {self.reset()}, label: {Text("Reset").bold()})
-                    .foregroundColor(Color.red)
-                    .padding(20)
-                Button(action: {self.save()}, label: {Text("Save").bold()})
-                    .foregroundColor(Color.green)
-                    .padding(20)
+                HStack {
+                    Button(action: {self.reset()}, label: {Text("Reset").bold()})
+                        .padding(10)
+                        .foregroundColor(Color.white)
+                        .background(Color.red)
+                        .cornerRadius(5)
+                        .shadow(color: Color.red.opacity(0.75), radius: 40, y: 0)
+                    
+                    Text("")
+                        .padding(15)
+                    
+                    Button(action: {self.save()}, label: {Text("Save").bold()})
+                        .padding(10)
+                        .foregroundColor(Color.white)
+                        .background(Color.green)
+                        .cornerRadius(5)
+                        .shadow(color: Color.green.opacity(0.75), radius: 40, y: 0)
+                }
+                
+//                Text(self.sum)
+//                    .font(.footnote)
+//                    .foregroundColor(Color.gray)
             }
-            
-//            Text(self.sum)
-//                .font(.footnote)
-//                .foregroundColor(Color.gray)
-        }.foregroundColor(Color.primary)
+            .foregroundColor(Color.black/*primary*/)
+        }
+        
     }
 }
 

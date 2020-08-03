@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @ObservedObject var game = Game(playerCount: 3)
+    @ObservedObject var game = Game(playerCount: 0)
     
     var body: some View {
         TabView {
@@ -27,20 +27,22 @@ struct ContentView: View {
             }
             
             VStack {
-                Text("""
-                    13 kaarten ausdeelen
-
-                    -10 Paire Biller
-                    -20 Paire Biller+ Paire Egal
-                    -30 3 der selwechter
-                    -40 FULLHOUSE 3mol di selwecht an 2mol diselwecht
-                    -50 4 diselwecht
-                    -60 40 punkten mat am mannsten karten
-                    -70 suite vun 5, (5,10 net rausleen)
-                    -80 2biller,3 selwecht , suite vun 3
-                    -90 eng suite vun 5, 4 mol diselwescht
-                    -100 alles beieneen kennen rausleen
-                """)
+//                Text("""
+//                    13 kaarten ausdeelen
+//
+//                    -10 Paire Biller
+//                    -20 Paire Biller+ Paire Egal
+//                    -30 3 der selwechter
+//                    -40 FULLHOUSE 3mol di selwecht an 2mol diselwecht
+//                    -50 4 diselwecht
+//                    -60 40 punkten mat am mannsten karten
+//                    -70 suite vun 5, (5,10 net rausleen)
+//                    -80 2biller,3 selwecht , suite vun 3
+//                    -90 eng suite vun 5, 4 mol diselwescht
+//                    -100 alles beieneen kennen rausleen
+//                """)
+                
+                TestView()
                 
                 Text("Made by Charel Felten")
                 .bold()

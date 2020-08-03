@@ -10,22 +10,21 @@ import SwiftUI
 
 struct GameView: View {
     @ObservedObject var game: Game
-    @State private var showPopover: Bool = false
+    @State private var showPopoverNG: Bool = false
     @State private var playerProposal = 0
     
     var body: some View {
         NavigationView {
             List {
-                
-                HStack {
-                    Text("Player").bold()
-                    Spacer()
-                    Text("Score").bold()
-                }
-                
                 ForEach(self.game.rounds) { round in
                     Group {
-                        Section(header: Text("Round \(round.number): \(round.desc)")) {
+                        Section(header:
+                            HStack {
+                                Text("Round \(round.number): \(round.desc)")
+                                Spacer()
+                                Text("Score")
+                            }
+                        ) {
                             ForEach(self.game.scoreBoard[round]!, id: \.self.id) { sbe in
                                 HStack {
                                     Text("\(sbe.player.name)")
@@ -57,23 +56,15 @@ struct GameView: View {
             .listStyle(GroupedListStyle())
                     
             .navigationBarTitle("Game")
-            .navigationBarItems(leading:
-                Button(action: {self.showPopover = true}) {
+            .navigationBarItems(trailing:
+                Button(action: {self.showPopoverNG = true}) {
                     Text("New Game")
                 }
-                .popover(isPresented: self.$showPopover, arrowEdge: .bottom) {
-                    Text("Select amount of players")
-                    Picker(selection: self.$playerProposal, label: Text("")) {
-                        ForEach(0..<10) { i in
-                            Text("\(i)")
-                        }
-                    }.labelsHidden()
-                    Button(action: {
-                        self.showPopover = false
-                        self.game.reset(playerCount: self.playerProposal)
-                    }) {
-                        Text("Start")
-                    }
+                .popover(isPresented: self.$showPopoverNG) {
+                    PlayerView(game: self.game, save: { players in
+                        self.game.reset(players: players)
+                        self.showPopoverNG = false
+                    })
                 }
             )
         }

@@ -9,21 +9,25 @@
 import SwiftUI
 
 struct Test2View: View {
-    @ObservedObject var game: Game
-    @State private var showPopover: Bool = false
-    @State private var playerProposal = 0
-    
+    @State private var blockAds = false
     var body: some View {
-        List {
-            ForEach(self.game.rounds) { round in
-                Group {
-                    Section(header: Text("\(round.number): \(round.desc)")) {
-                        ForEach(self.game.scoreBoard[round]!, id: \.self.id) { sbe in
-                            Text("\(round.number) \(sbe.id)")
-                            
-                        }
-                    }
+        ZStack {
+//            LinearGradient(gradient: Gradient(colors: [
+//            Color(red: 251/256, green: 215/256, blue: 70/256),
+//            Color(red: 250/256, green: 170/256, blue: 50/256)]),
+//                       startPoint: .topLeading, endPoint: .bottom)
+//
+//
+//            .edgesIgnoringSafeArea(.all)
+        
+            NavigationView {
+                List {
+                    Toggle(isOn: $blockAds) { Text("Block Ads in Safari") }
                 }
+                    .listStyle(GroupedListStyle())
+                
+            
+            .navigationBarTitle("NanoBlock")
             }
         }
     }
@@ -31,6 +35,6 @@ struct Test2View: View {
 
 struct Test2View_Previews: PreviewProvider {
     static var previews: some View {
-        Test2View(game: Game(playerCount: 4))
+        Test2View()
     }
 }
