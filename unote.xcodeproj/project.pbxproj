@@ -31,7 +31,7 @@
 		A25182DF24C1BD6200844A51 /* CardCounterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCounterView.swift; sourceTree = "<group>"; };
 		A2664FC124D6D09400A73C30 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		A26FF58724BF85D300D227BE /* Test2View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test2View.swift; sourceTree = "<group>"; };
-		A2A237C524B3709F0039F89F /* unote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = unote.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A2A237C524B3709F0039F89F /* Carioca.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Carioca.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2A237C824B3709F0039F89F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A2A237CA24B3709F0039F89F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		A2A237CC24B3709F0039F89F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -64,7 +64,7 @@
 		A2A237C624B3709F0039F89F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A2A237C524B3709F0039F89F /* unote.app */,
+				A2A237C524B3709F0039F89F /* Carioca.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -116,7 +116,7 @@
 			);
 			name = unote;
 			productName = unote;
-			productReference = A2A237C524B3709F0039F89F /* unote.app */;
+			productReference = A2A237C524B3709F0039F89F /* Carioca.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -325,8 +325,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = charelfelten.unote;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = charelfelten.carioca;
+				PRODUCT_NAME = Carioca;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -345,8 +345,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = charelfelten.unote;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = charelfelten.carioca;
+				PRODUCT_NAME = Carioca;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
