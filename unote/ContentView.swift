@@ -42,7 +42,7 @@ struct ContentView: View {
 //                    -100 alles beieneen kennen rausleen
 //                """)
                 
-                TestView()
+//                TestView()
                 
                 Text("Made by Charel Felten")
                 .bold()
